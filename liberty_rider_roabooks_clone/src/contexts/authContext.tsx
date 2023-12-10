@@ -1,9 +1,9 @@
-import { Dispatch, PropsWithChildren, createContext, useReducer } from "react";
+import { Dispatch, PropsWithChildren, createContext, useEffect, useReducer } from "react";
 import { AuthActionType, AuthReducer, AuthState, initialAuthState } from "../reducers/AuthReducer";
 
 export interface Action<T> {
     type: T;
-    payload: never;
+    payload: any;
 }
 
 export const AuthContext = createContext<
@@ -12,6 +12,14 @@ export const AuthContext = createContext<
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) =>{
     const [state, dispatch] = useReducer(AuthReducer, initialAuthState);
+
+    useEffect(() => {
+        const user = localStorage.getItem('@user')
+        if (user) {
+            dispatch({ type: AuthActionType.LOGIN, payload: JSON.parse(user) })
+        }
+    }, [])
+
     return (
         <AuthContext.Provider value={[state, dispatch]}>
             {children}
