@@ -23,6 +23,9 @@ const Navbar: React.FC<PropsWithChildren> = () => {
               <Link to="/" className="text-zinc-950">SOS Accident</Link>
             </li>
             <li>
+              <Link to="/" className="text-zinc-950">Premium offert</Link>
+            </li>
+            <li>
             <details>
               <summary>
                 Parent
